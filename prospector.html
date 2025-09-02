@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Prospector — Prospector Leather Co.</title>
+  <meta name="description" content="The Prospector - Heavy-duty leather ammo pouch built for the long haul. Made in Dunedin, NZ." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Work+Sans:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#f5f3ed;
+      --ink-muted:#ddd2c4;
+      --bg:#211e19;
+      --panel:#2f2a23;
+      --border:#4d443a;
+      --brand:#527a55;
+      --accent:#d9b180;
+      --gold:#e8cb91;
+      --rust:#b5764d;
+      --sand:#eadfce;
+      --sidebar: 300px;
+      --maxw: 1200px;
+      --radius: 12px;
+      --gap: clamp(14px,2.8vw,26px);
+      --gutter: 32px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-size:17px;
+      font-family:"Cutive Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      line-height:1.65;
+    }
+
+    .topo{ background: var(--panel); }
+    .app{min-height:100dvh}
+    nav.sidebar{position:sticky;top:0;z-index:50;width:100%;border-bottom:1px solid var(--border);display:flex;background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.02) 2px,rgba(255,255,255,.02) 4px)}
+    .sidebar-inner{display:flex;align-items:center;width:100%;padding:1rem var(--gutter);gap:20px;position:relative}
+    .brand{order:1}
+    .logo-text{font-family:"Work Sans", system-ui, sans-serif;font-weight:800;font-size:20px;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase}
+    .nav{display:flex;gap:8px;margin:0;position:absolute;left:50%;transform:translateX(-50%)}
+    .nav a{color:var(--sand);text-decoration:none;padding:10px 16px;border-radius:10px;white-space:nowrap}
+    .nav a:hover,.nav a:focus-visible{background:#3a332b;outline:none}
+    .nav a[aria-current="page"]{background:transparent}
+    .cta{background:transparent;color:var(--accent)}
+
+    main{margin-left:0;}
+    section{padding:clamp(40px,8vw,80px) 20px}
+    .wrap{max-width:var(--maxw);margin:0 auto}
+    h1,h2{font-family:"Work Sans", system-ui, sans-serif;margin:0 0 8px;line-height:1.18;letter-spacing:-0.01em;color:var(--sand)}
+    h1{font-size:clamp(28px,4.6vw,56px)}
+    h2{font-size:clamp(22px,3.2vw,36px)}
+    .muted{color:var(--ink-muted)}
+
+    .product-hero{padding:clamp(60px,10vw,120px) 20px;background:#24201b;position:relative;overflow:hidden}
+    .product-hero .wrap{position:relative;z-index:5}
+
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,80px);align-items:start}
+    .product-images{display:flex;flex-direction:column;gap:16px}
+    .product-image{aspect-ratio:1;background:#322b23;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:grid;place-items:center;cursor:pointer;transition:all 0.2s ease;position:relative}
+    .product-image:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .product-image img{width:100%;height:100%;object-fit:cover;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);position:absolute;top:0;left:0}
+    .product-image:hover img{transform:scale(1.05)}
+    
+    /* Directional slide animations */
+    .product-image img.slide-out-left{transform:translateX(-100%);opacity:0}
+    .product-image img.slide-out-right{transform:translateX(100%);opacity:0}
+    .product-image img.slide-out-up{transform:translateY(-100%);opacity:0}
+    .product-image img.slide-out-down{transform:translateY(100%);opacity:0}
+    
+    .product-image img.slide-in-left{transform:translateX(-100%);opacity:0}
+    .product-image img.slide-in-right{transform:translateX(100%);opacity:0}
+    .product-image img.slide-in-up{transform:translateY(-100%);opacity:0}
+    .product-image img.slide-in-down{transform:translateY(100%);opacity:0}
+    
+    .product-image img.active{transform:translateX(0) translateY(0);opacity:1}
+    .product-thumbnails{display:flex;gap:12px;margin-top:16px}
+    .thumbnail{width:80px;height:80px;background:#322b23;border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:all 0.2s ease;opacity:0.7}
+    .thumbnail:hover,.thumbnail.active{border-color:var(--accent);opacity:1}
+    .thumbnail img{width:100%;height:100%;object-fit:cover}
+
+    .product-info h1{margin-bottom:16px}
+    .product-price{font-size:clamp(24px,3vw,32px);color:var(--gold);font-weight:800;margin:16px 0 24px}
+    .product-description{margin-bottom:32px;line-height:1.7}
+    .product-features{margin:32px 0}
+    .product-features h3{color:var(--sand);font-family:"Work Sans", system-ui, sans-serif;font-size:18px;margin-bottom:16px}
+    .product-features ul{list-style:none;padding:0;margin:0}
+    .product-features li{padding:8px 0;border-bottom:1px solid var(--border);position:relative;padding-left:20px}
+    .product-features li:before{content:'•';color:var(--accent);font-weight:bold;position:absolute;left:0}
+    .product-features li:last-child{border-bottom:none}
+
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:var(--radius);border:1px solid var(--rust);background:rgba(47,42,35,.8);color:var(--sand);text-decoration:none;font-weight:600;backdrop-filter:blur(10px);transition:all 0.2s ease}
+    .btn:hover,.btn:focus-visible{border-color:var(--accent);background:rgba(47,42,35,.95);transform:translateY(-1px);outline:none}
+    .btn.primary{background:rgba(217,177,128,.15);border-color:var(--accent);color:var(--accent)}
+
+    .back-link{color:var(--ink-muted);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;transition:color 0.2s ease}
+    .back-link:hover{color:var(--sand)}
+
+    footer{padding:24px 16px;color:var(--ink-muted);text-align:center;background:#1c1915;margin-top:80px}
+
+
+    @media (max-width: 768px){
+      .product-grid{grid-template-columns:1fr;gap:32px}
+      .product-thumbnails{flex-wrap:wrap;justify-content:center}
+      .thumbnail{width:70px;height:70px}
+      .sidebar-inner{flex-wrap:wrap;justify-content:center;gap:8px}
+      .brand{order:1;flex-basis:100%;text-align:center}
+      .nav{order:2;flex-wrap:wrap;justify-content:center;position:static;transform:none}
+      .nav a{padding:8px 12px;font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar topo" aria-label="Primary">
+      <div class="sidebar-inner">
+        <div class="brand">
+          <a href="index.html" style="text-decoration:none;color:inherit">
+            <div class="logo-text">PROSPECTOR</div>
+          </a>
+        </div>
+        <div class="nav">
+          <a href="index.html#products">Our Work</a>
+          <a href="index.html#gallery">Workshop</a>
+          <a href="index.html#about">The Story</a>
+          <a class="cta" href="index.html#contact">Get in Touch</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="product-hero">
+        <div class="wrap">
+          <a href="index.html" class="back-link">← Back to collection</a>
+          <div class="product-grid">
+            <div class="product-images">
+              <div class="product-image" id="product-image-container">
+                <img id="main-image" src="images/product shots/003.png" alt="The Prospector - Heavy-duty leather ammo pouch built for the long haul" class="active" />
+              </div>
+              <div class="product-thumbnails">
+                <div class="thumbnail active" onclick="changeImage('images/product shots/003.png', 0)">
+                  <img src="images/product shots/003.png" alt="Prospector main view" />
+                </div>
+                <div class="thumbnail" onclick="changeImage('images/workshop shots/007.png', 1)">
+                  <img src="images/workshop shots/007.png" alt="Prospector detail view" />
+                </div>
+                <div class="thumbnail" onclick="changeImage('images/workshop shots/008.png', 2)">
+                  <img src="images/workshop shots/008.png" alt="Prospector craftsmanship" />
+                </div>
+                <div class="thumbnail" onclick="changeImage('images/workshop shots/009.png', 3)">
+                  <img src="images/workshop shots/009.png" alt="Prospector materials" />
+                </div>
+              </div>
+            </div>
+            <div class="product-info">
+              <h1>The Prospector</h1>
+              <p class="muted">Extra wide • Built for the long haul • #003</p>
+              <div class="product-price">$229 NZD</div>
+              <div class="product-description">
+                <p>For those who venture where the trail ends and the real work begins. The Prospector is a heavy-duty ammunition pouch designed for serious hunters and outdoor professionals who demand gear that won't fail when lives depend on it.</p>
+                <p>Built extra wide with reinforced construction to carry multiple cartridge types. The secure closure system keeps ammunition dry and accessible, whether you're stalking red deer in the Southern Alps or tracking through dense bush.</p>
+              </div>
+              
+              <div class="product-features">
+                <h3>Field Specs</h3>
+                <ul>
+                  <li>Extra-wide design for multiple cartridge types</li>
+                  <li>Heavy-duty full-grain leather construction</li>
+                  <li>Waterproof closure system</li>
+                  <li>Individual cartridge slots with retention</li>
+                  <li>Holds 20+ rifle cartridges (.308, .270, .30-06)</li>
+                  <li>Reinforced belt attachment points</li>
+                  <li>Quick-access design for field use</li>
+                  <li>Silent operation for hunting</li>
+                  <li>Made in Dunedin, New Zealand</li>
+                </ul>
+              </div>
+
+              <a href="index.html#contact" class="btn primary">Stake your claim</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="y"></span> Prospector Leather Co. — Dunedin, New Zealand
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    
+    let currentImageIndex = 0;
+    let isAnimating = false;
+    
+    function changeImage(src, newIndex) {
+      if (isAnimating || newIndex === currentImageIndex) return;
+      
+      isAnimating = true;
+      const container = document.getElementById('product-image-container');
+      const currentImage = document.getElementById('main-image');
+      
+      // Determine animation direction based on thumbnail positions
+      const direction = getAnimationDirection(currentImageIndex, newIndex);
+      
+      // Create new image element
+      const newImage = document.createElement('img');
+      newImage.src = src;
+      newImage.alt = currentImage.alt;
+      newImage.style.zIndex = '1';
+      
+      // Position new image off-screen based on direction
+      newImage.className = `slide-in-${direction}`;
+      container.appendChild(newImage);
+      
+      // Force browser to recognize the new image positioning
+      newImage.offsetHeight;
+      
+      // Start animations
+      currentImage.className = `slide-out-${getOppositeDirection(direction)}`;
+      newImage.className = 'active';
+      
+      // Clean up after animation
+      setTimeout(() => {
+        container.removeChild(currentImage);
+        newImage.id = 'main-image';
+        newImage.style.zIndex = '';
+        currentImageIndex = newIndex;
+        isAnimating = false;
+      }, 400);
+      
+      // Update active thumbnail
+      updateThumbnails(newIndex);
+    }
+    
+    function getAnimationDirection(currentIndex, newIndex) {
+      // Simple left/right based on thumbnail sequence
+      if (newIndex > currentIndex) return 'right'; // Moving to a later thumbnail
+      if (newIndex < currentIndex) return 'left';  // Moving to an earlier thumbnail
+      
+      return 'left'; // fallback
+    }
+    
+    function getOppositeDirection(direction) {
+      const opposites = {
+        'left': 'right',
+        'right': 'left', 
+        'up': 'down',
+        'down': 'up'
+      };
+      return opposites[direction];
+    }
+    
+    function updateThumbnails(activeIndex) {
+      const thumbnails = document.querySelectorAll('.thumbnail');
+      thumbnails.forEach((thumb, i) => {
+        if (i === activeIndex) {
+          thumb.classList.add('active');
+        } else {
+          thumb.classList.remove('active');
+        }
+      });
+    }
+    
+    // No page transitions - just normal navigation
+  </script>
+</body>
+</html>

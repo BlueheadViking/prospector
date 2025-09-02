@@ -101,6 +101,57 @@
     .quote{font-size:clamp(18px,2.4vw,26px);line-height:1.5;color:var(--sand)}
     .attribution{color:var(--ink-muted);text-align:right}
 
+    .video-section{background:#262018;border-bottom:1px solid var(--border)}
+    .video-container{margin-top:var(--gap)}
+    .video-placeholder{
+      aspect-ratio:16/9;
+      background:#322b23;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+      max-width:800px;
+      margin:0 auto;
+    }
+    .video-placeholder:hover{
+      border-color:var(--accent);
+      background:#3a332b;
+      transform:translateY(-2px);
+    }
+    .play-button{
+      width:80px;
+      height:80px;
+      background:rgba(217,177,128,.15);
+      border:2px solid var(--accent);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      color:var(--accent);
+      transition:all 0.3s ease;
+    }
+    .video-placeholder:hover .play-button{
+      background:rgba(217,177,128,.25);
+      transform:scale(1.1);
+    }
+    .video-placeholder p{
+      margin:0;
+      font-size:18px;
+      color:var(--sand);
+    }
+    .video-placeholder small{
+      margin:0;
+      font-size:14px;
+    }
+
     .gallery{background:none}
     .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .shot{aspect-ratio:16/10;background:#322b23;border:1px solid var(--border);border-radius:var(--radius);display:grid;place-items:center;color:#a89f91;overflow:hidden;cursor:pointer;transition:transform 0.2s ease}
@@ -128,6 +179,7 @@
     .form-submit .btn{font-size:16px;padding:16px 32px;background:rgba(58,52,44,.9);border-color:var(--accent)}
 
     footer{padding:24px 16px;color:var(--ink-muted);text-align:center;background:#1c1915}
+
 
     @media (min-width: 760px){
       .card{grid-column:span 4}
@@ -196,46 +248,52 @@
       <section id="products" class="products">
         <div class="wrap">
           <h2>Prospector's Choice</h2>
-          <p class="muted">Three belts for the journey ahead. Here's to new trails. Drop us a line to stake your claim.</p>
+          <p class="muted">Essential gear for the journey ahead. Here's to new trails. Drop us a line to stake your claim.</p>
           <div class="grid products-grid" style="margin-top:var(--gap)">
             <article class="card">
-              <div class="media">
-                <img src="images/product shots/001.png" alt="The Trailblazer - Daily carry leather belt with brass hardware" />
-                <div class="stamp">$179</div>
-              </div>
-              <div class="body">
-                <div>
-                  <div>The Trailblazer</div>
-                  <div class="meta muted">Daily carry • Brass hardware</div>
+              <a href="trailblazer.html" style="text-decoration:none;color:inherit;display:block">
+                <div class="media">
+                  <img src="images/product shots/001.png" alt="The Trailblazer - Daily carry leather belt with brass hardware" />
+                  <div class="stamp">$179</div>
                 </div>
-                <div class="code">#001</div>
-              </div>
+                <div class="body">
+                  <div>
+                    <div>The Trailblazer</div>
+                    <div class="meta muted">Daily carry • Brass hardware</div>
+                  </div>
+                  <div class="code">#001</div>
+                </div>
+              </a>
             </article>
             <article class="card">
-              <div class="media">
-                <img src="images/product shots/002.png" alt="The Hunter - Field-ready leather belt with weather-sealed finish" />
-                <div class="stamp">$199</div>
-              </div>
-              <div class="body">
-                <div>
-                  <div>The Hunter</div>
-                  <div class="meta muted">Field-ready • Weather-sealed finish</div>
+              <a href="hunter.html" style="text-decoration:none;color:inherit;display:block">
+                <div class="media">
+                  <img src="images/product shots/002.png" alt="The Hunter - Field-ready leather knife sheath with weather-sealed finish" />
+                  <div class="stamp">$199</div>
                 </div>
-                <div class="code">#002</div>
-              </div>
+                <div class="body">
+                  <div>
+                    <div>The Hunter</div>
+                    <div class="meta muted">Field-ready • Weather-sealed finish</div>
+                  </div>
+                  <div class="code">#002</div>
+                </div>
+              </a>
             </article>
             <article class="card">
-              <div class="media">
-                <img src="images/product shots/003.png" alt="The Prospector - Extra wide leather belt built for the long haul" />
-                <div class="stamp">$229</div>
-              </div>
-              <div class="body">
-                <div>
-                  <div>The Prospector</div>
-                  <div class="meta muted">Extra wide • Built for the long haul</div>
+              <a href="prospector.html" style="text-decoration:none;color:inherit;display:block">
+                <div class="media">
+                  <img src="images/product shots/003.png" alt="The Prospector - Heavy-duty leather ammo pouch built for the long haul" />
+                  <div class="stamp">$229</div>
                 </div>
-                <div class="code">#003</div>
-              </div>
+                <div class="body">
+                  <div>
+                    <div>The Prospector</div>
+                    <div class="meta muted">Extra wide • Built for the long haul</div>
+                  </div>
+                  <div class="code">#003</div>
+                </div>
+              </a>
             </article>
           </div>
         </div>
@@ -245,6 +303,20 @@
         <div class="wrap">
           <p class="quote">"Five seasons in the high country. Still my go-to when I'm heading into rough territory."</p>
           <p class="attribution">— Mountain guide</p>
+        </div>
+      </section>
+
+      <section class="video-section">
+        <div class="wrap">
+          <h2>From hide to trail</h2>
+          <p class="muted">Watch the journey from raw leather to finished gear in our Dunedin workshop.</p>
+          <div class="video-container">
+            <div class="video-placeholder">
+              <div class="play-button">▶</div>
+              <p>Video: The making of Prospector gear</p>
+              <small class="muted">Click to play craftsmanship video</small>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -304,7 +376,7 @@
         <div class="wrap">
           <h2>Chart your course</h2>
           <p class="muted">Ready to gear up? Tell us where you're headed and what you need. We'll help you find the right belt for your next adventure.</p>
-          <form name="enquiry" method="post" class="enquiry-form">
+          <form name="enquiry" method="post" action="#" class="enquiry-form">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="Your name" required />
@@ -318,7 +390,7 @@
               <textarea id="message" name="message" placeholder="Tell us about your adventures — hunting, fishing, daily carry? What kind of belt will serve you best on the trail ahead..." rows="5"></textarea>
             </div>
             <div class="form-submit">
-              <button class="btn" type="submit">Send word</button>
+              <button class="btn" type="submit">Stake your claim</button>
             </div>
           </form>
         </div>
@@ -389,7 +461,7 @@
     window.addEventListener('scroll', updateActiveNav);
     updateActiveNav(); // Set initial active state
 
-
+    // No scroll position memory - pages load at top
 
   </script>
 </body>
