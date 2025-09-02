@@ -1,0 +1,51 @@
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      bottom: 0;
+      left: var(--x);
+      width: var(--size);
+      height: var(--size);
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-and-flicker var(--duration) var(--delay) infinite linear;
+    }
+
+    @keyframes float-and-flicker {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+      }
+      25% {
+        transform: translate(30px, -25vh) scale(1.1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translate(-30px, -50vh) scale(0.9);
+      }
+      75% {
+        transform: translate(30px, -75vh) scale(1.2);
+      }
+      100% {
+        transform: translate(0, -100vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    .particle:nth-child(1) { --x: 10%; --size: 2px; --duration: 18s; --delay: 0s; }
+    .particle:nth-child(2) { --x: 20%; --size: 1px; --duration: 12s; --delay: 1s; }
+    .particle:nth-child(3) { --x: 30%; --size: 3px; --duration: 22s; --delay: 2s; }
+    .particle:nth-child(4) { --x: 40%; --size: 2px; --duration: 15s; --delay: 3s; }
+    .particle:nth-child(5) { --x: 50%; --size: 1px; --duration: 27s; --delay: 4s; }
+    .particle:nth-child(6) { --x: 60%; --size: 2px; --duration: 13s; --delay: 5s; }
+    .particle:nth-child(7) { --x: 70%; --size: 3px; --duration: 21s; --delay: 6s; }
+    .particle:nth-child(8) { --x: 80%; --size: 1px; --duration: 16s; --delay: 7s; }
+    .particle:nth-child(9) { --x: 90%; --size: 2px; --duration: 19s; --delay: 8s; }
+    .particle:nth-child(10) { --x: 95%; --size: 1px; --duration: 10s; --delay: 9s; }
