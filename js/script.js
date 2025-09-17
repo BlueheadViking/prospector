@@ -2,37 +2,22 @@
 function createNavigation() {
     const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
 
-    let navigationHTML;
-
-    if (isHomePage) {
-        navigationHTML = `
-            <div class="brand">
+    // Use the same navigation structure for all pages
+    const navigationHTML = `
+        <div class="brand">
+            <a href="index.html" style="text-decoration:none;color:inherit">
                 <div class="logo-text">PROSPECTOR</div>
-            </div>
-            <div class="nav">
-                <a href="#products" aria-current="page">Our Work</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#about">The Story</a>
-                <a class="cta" href="#contact">Get in Touch</a>
-            </div>
-            <div class="enquire-sticky"><a class="btn" href="#contact">Enquire to order</a></div>
-            <div class="sidebar-footer">Dunedin, Aotearoa NZ<br/>Built in small batches</div>
-        `;
-    } else {
-        navigationHTML = `
-            <div class="brand">
-                <a href="index.html" style="text-decoration:none;color:inherit">
-                    <div class="logo-text">PROSPECTOR</div>
-                </a>
-            </div>
-            <div class="nav">
-                <a href="index.html#products">Our Work</a>
-                <a href="index.html#gallery">Gallery</a>
-                <a href="index.html#about">The Story</a>
-                <a class="cta" href="index.html#contact">Get in Touch</a>
-            </div>
-        `;
-    }
+            </a>
+        </div>
+        <div class="nav">
+            <a href="index.html#products">Our Work</a>
+            <a href="index.html#gallery">Gallery</a>
+            <a href="index.html#about">The Story</a>
+            <a class="cta" href="index.html#contact">Get in Touch</a>
+        </div>
+        ${isHomePage ? '<div class="enquire-sticky"><a class="btn" href="#contact">Enquire to order</a></div>' : ''}
+        ${isHomePage ? '<div class="sidebar-footer">Dunedin, Aotearoa NZ<br/>Built in small batches</div>' : ''}
+    `;
 
     const sidebarInner = document.querySelector('.sidebar-inner');
     if (sidebarInner) {
