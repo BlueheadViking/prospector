@@ -66,6 +66,7 @@
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,80px);align-items:start}
     .product-images{display:flex;flex-direction:column;gap:16px}
     .product-image{aspect-ratio:1;background:#322b23;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:grid;place-items:center;cursor:pointer;transition:all 0.2s ease;position:relative}
+    .product-image::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");pointer-events:none;z-index:2}
     .product-image:hover{border-color:var(--accent);transform:translateY(-2px)}
     .product-image img{width:100%;height:100%;object-fit:cover;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);position:absolute;top:0;left:0}
     .product-image:hover img{transform:scale(1.05)}

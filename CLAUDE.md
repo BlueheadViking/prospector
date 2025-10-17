@@ -46,12 +46,19 @@ This is a static HTML/CSS/JavaScript website with no build process or package ma
 ### Key CSS Variables
 ```css
 --ink: #f5f3ed;        /* Primary text color */
+--ink-muted: #ddd2c4;  /* Muted text color */
 --bg: #211e19;         /* Background color */
 --panel: #2f2a23;      /* Panel/card backgrounds */
+--border: #4d443a;     /* Border color */
 --brand: #527a55;      /* Brand green */
 --accent: #d9b180;     /* Accent color */
 --gold: #e8cb91;       /* Gold highlights */
---maxw: 1200px;        /* Max content width */
+--rust: #b5764d;       /* Rust accent */
+--sand: #eadfce;       /* Sand/heading color */
+--maxw: 1100px;        /* Max content width */
+--radius: 12px;        /* Border radius */
+--gap: clamp(14px,2.8vw,26px);   /* Responsive gap */
+--gutter: 32px;        /* Outer padding */
 ```
 
 ### JavaScript Features
@@ -98,3 +105,115 @@ Refer to `gemini.md` for detailed brand guidelines, design language, and content
 ## Content Strategy
 
 Products are positioned as premium, heritage-crafted goods built for New Zealand's rugged environment. Copy emphasizes durability, authenticity, and connection to the land. Avoid technical jargon in favor of straightforward, evocative language.
+
+## Visual Design Style Guide
+
+### Typography System
+- **Headings (h1, h2)**: "Cowboy Outlaw Textured" font with 0.1em letter-spacing
+  - Creates authentic Western/heritage aesthetic
+  - Fallback to "Work Sans" for compatibility
+  - Color: `var(--sand)` (#eadfce)
+  - h1: `clamp(28px, 4.6vw, 56px)`
+  - h2: `clamp(22px, 3.2vw, 36px)`
+- **Body Text**: "Cutive Mono" monospace font
+  - Base size: 17px
+  - Line height: 1.65
+  - Color: `var(--ink)` (#f5f3ed)
+- **Logo**: SVG logo colored with gold filter to match brand palette
+
+### Navigation Design
+- **Floating Navbar**:
+  - Position: Fixed, 20px from top
+  - Width: Content width (1100px max), centered
+  - Background: Semi-transparent `rgba(47,42,35,0.5)` with backdrop blur
+  - Border: 1px solid `rgba(77,68,58,0.6)`, rounded to 999px (pill shape)
+  - Shadow: `0 4px 20px rgba(0,0,0,0.4)` for elevation
+  - Logo centered with nav links split on either side (2 left, 2 right)
+- **Scroll Behavior**:
+  - Hides when scrolling down past 300px threshold
+  - Shows when scrolling up
+  - Transform: `translateX(-50%) translateY(-150%)` when hidden
+- **Nav Links**:
+  - Padding: 6px 16px
+  - Hover: Background `#3a332b`
+  - Active: No background, indicated by state
+
+### Texture & Effects System
+- **Grain Texture**: SVG fractal noise overlay used consistently across site
+  ```css
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='[VARIES]'/%3E%3C/svg%3E");
+  ```
+  - Navbar: 0.08 opacity (very subtle)
+  - Hero section: 0.15 opacity (noticeable)
+  - Product/gallery images: 0.12 opacity (balanced)
+  - Contact section: 0.08 opacity (subtle)
+- **Glassmorphism**: Semi-transparent backgrounds with `backdrop-filter: blur(10px)`
+- **Image Treatment**: All images include grain overlay via `::before` pseudo-element with `z-index: 2`
+
+### Hero Section Design
+- **Full viewport height**: `min-height: 100vh`
+- **Background**:
+  - Hero image with dark gradient overlay `rgba(40,36,32,0.85)` to `rgba(47,42,35,0.85)`
+  - Increased contrast (1.15) and reduced saturation (0.9) for gritty feel
+  - Grain texture overlay (0.15 opacity)
+  - Vignette effect via radial gradient
+- **Layout**:
+  - Flexbox centered content
+  - Top padding: `clamp(100px, 15vw, 180px)` to account for floating navbar
+  - Bottom padding: `clamp(60px, 10vw, 120px)`
+  - Logo at top with separator line below (gold gradient, 60-100px wide)
+  - Content gap: `clamp(20px, 4vw, 32px)`
+
+### Card & Image Components
+- **Product Cards**:
+  - Grid: 12-column system, cards span 4 columns on desktop
+  - Aspect ratio: 4:3 for product images
+  - Border: 1px solid `var(--border)`
+  - Border radius: `var(--radius)` (12px)
+  - Background: `#38322a`
+  - Hover: Image scales to 1.05
+  - Price stamp: Positioned absolute, bottom-right, rotated -3deg
+- **Gallery Images**:
+  - Grid: 3 columns on desktop, 2 on tablet, 1 on mobile
+  - Aspect ratio: 16:10
+  - Hover: Card lifts 4px, image scales to 1.1
+  - Grain texture overlay on all images
+
+### Button Styles
+- **Primary Button**:
+  - Padding: 14px 24px
+  - Border radius: `var(--radius)`
+  - Border: 1px solid `var(--rust)`
+  - Background: `rgba(47,42,35,.8)` with backdrop blur
+  - Hover: Border changes to `var(--accent)`, subtle lift with `translateY(-1px)`
+- **CTA Button**:
+  - Background: `rgba(217,177,128,.15)`
+  - Border: `var(--accent)`
+  - Color: `var(--accent)`
+
+### Color Usage Guidelines
+- **Backgrounds**: Dark browns (#211e19, #2f2a23, #24201b)
+- **Text**: Light cream/sand tones (#f5f3ed, #eadfce, #ddd2c4)
+- **Accents**: Gold/bronze range (#e8cb91, #d9b180, #b5764d)
+- **Borders**: Subtle brown (#4d443a)
+- **Interactive Elements**: Use `var(--accent)` for hover states and CTAs
+
+### Spacing System
+- **Sections**: `clamp(40px, 8vw, 80px)` vertical padding
+- **Content width**: Max 1100px, centered with `margin: 0 auto`
+- **Grid gaps**: `clamp(14px, 2.8vw, 26px)` for responsive spacing
+- **Outer gutters**: 32px (`var(--gutter)`)
+
+### Responsive Breakpoints
+- **Desktop**: Default styles
+- **980px and below**: Reduced padding, smaller nav links
+- **768px and below**: Single column layouts, stacked navigation
+- **640px and below**: Gallery grid reduces to 2 columns
+- **480px and below**: Gallery grid becomes single column
+
+### Animation & Transitions
+- **Smooth scrolling**: `scroll-behavior: smooth`
+- **Navbar**: 0.3s ease transform
+- **Image zoom**: 0.3s ease on hover
+- **Buttons**: 0.2s ease for all states
+- **Cards**: 0.2s ease transform on hover
