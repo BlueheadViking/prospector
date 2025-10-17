@@ -56,7 +56,9 @@ This is a static HTML/CSS/JavaScript website with no build process or package ma
 --rust: #b5764d;       /* Rust accent */
 --sand: #eadfce;       /* Sand/heading color */
 --maxw: 1100px;        /* Max content width */
---radius: 12px;        /* Border radius */
+--radius: 18px;        /* Standard border radius (Apple-style subtle rounding) */
+--radius-sm: 14px;     /* Small border radius (mobile/compact elements) */
+--radius-lg: 24px;     /* Large border radius (hero elements) */
 --gap: clamp(14px,2.8vw,26px);   /* Responsive gap */
 --gutter: 32px;        /* Outer padding */
 ```
@@ -122,19 +124,26 @@ Products are positioned as premium, heritage-crafted goods built for New Zealand
 - **Logo**: SVG logo colored with gold filter to match brand palette
 
 ### Navigation Design
-- **Floating Navbar**:
+- **Floating Navbar** (Desktop):
   - Position: Fixed, 20px from top
   - Width: Content width (1100px max), centered
   - Background: Semi-transparent `rgba(47,42,35,0.5)` with backdrop blur
-  - Border: 1px solid `rgba(77,68,58,0.6)`, rounded to 999px (pill shape)
+  - Border: 1px solid `rgba(77,68,58,0.6)`, border-radius: 18px (Apple-style subtle rounding)
   - Shadow: `0 4px 20px rgba(0,0,0,0.4)` for elevation
   - Logo centered with nav links split on either side (2 left, 2 right)
+- **Mobile Navbar** (768px and below):
+  - Max-width: 500px, centered
+  - Border-radius: 14px (proportional to smaller size)
+  - Vertical column layout with logo at top
+  - Logo separated from nav links with subtle divider line
+  - Navigation links arranged in two rows
 - **Scroll Behavior**:
   - Hides when scrolling down past 300px threshold
   - Shows when scrolling up
   - Transform: `translateX(-50%) translateY(-150%)` when hidden
 - **Nav Links**:
-  - Padding: 6px 16px
+  - Desktop: Padding 6px 16px
+  - Mobile: Padding 10px 18px (touch-friendly)
   - Hover: Background `#3a332b`
   - Active: No background, indicated by state
 
@@ -164,25 +173,34 @@ Products are positioned as premium, heritage-crafted goods built for New Zealand
   - Logo at top with separator line below (gold gradient, 60-100px wide)
   - Content gap: `clamp(20px, 4vw, 32px)`
 
+### Border Radius System
+The site uses a consistent Apple-style border-radius system with subtle, refined rounding:
+- **Standard elements** (`--radius: 18px`): Buttons, cards, forms, thumbnails, navbar (desktop)
+- **Compact/mobile elements** (`--radius-sm: 14px`): Mobile navbar, small UI elements
+- **Large elements** (`--radius-lg: 24px`): Hero sections, large containers (reserved for future use)
+
+**Philosophy**: Subtle rounding that feels modern and refined without being toy-like. Similar to Apple's design language where corners are rounded just enough to soften the interface while maintaining professionalism.
+
 ### Card & Image Components
 - **Product Cards**:
   - Grid: 12-column system, cards span 4 columns on desktop
   - Aspect ratio: 4:3 for product images
   - Border: 1px solid `var(--border)`
-  - Border radius: `var(--radius)` (12px)
+  - Border radius: `var(--radius)` (18px)
   - Background: `#38322a`
   - Hover: Image scales to 1.05
   - Price stamp: Positioned absolute, bottom-right, rotated -3deg
 - **Gallery Images**:
   - Grid: 3 columns on desktop, 2 on tablet, 1 on mobile
   - Aspect ratio: 16:10
+  - Border radius: `var(--radius)` (18px)
   - Hover: Card lifts 4px, image scales to 1.1
   - Grain texture overlay on all images
 
 ### Button Styles
 - **Primary Button**:
   - Padding: 14px 24px
-  - Border radius: `var(--radius)`
+  - Border radius: `var(--radius)` (18px)
   - Border: 1px solid `var(--rust)`
   - Background: `rgba(47,42,35,.8)` with backdrop blur
   - Hover: Border changes to `var(--accent)`, subtle lift with `translateY(-1px)`
@@ -190,6 +208,7 @@ Products are positioned as premium, heritage-crafted goods built for New Zealand
   - Background: `rgba(217,177,128,.15)`
   - Border: `var(--accent)`
   - Color: `var(--accent)`
+  - Border radius: `var(--radius)` (18px)
 
 ### Color Usage Guidelines
 - **Backgrounds**: Dark browns (#211e19, #2f2a23, #24201b)
