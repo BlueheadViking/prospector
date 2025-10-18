@@ -4,19 +4,26 @@ function createNavigation() {
 
     // Use the same navigation structure for all pages
     const navigationHTML = `
-        <div class="nav nav-left">
-            <a href="index.html#products">Our Work</a>
-            <a href="index.html#gallery">Gallery</a>
-        </div>
         <div class="brand">
             <a href="index.html" style="text-decoration:none;color:inherit">
                 <img src="images/ProspectorLogo.svg" alt="Prospector Leather Co." class="logo-img" />
             </a>
         </div>
-        <div class="nav nav-right">
-            <a href="index.html#about">The Story</a>
-            <a class="cta" href="index.html#contact">Get in Touch</a>
+        <div class="nav-container">
+            <div class="nav nav-left">
+                <a href="index.html#products">Our Work</a>
+                <a href="index.html#gallery">Gallery</a>
+            </div>
+            <div class="nav nav-right">
+                <a href="index.html#about">The Story</a>
+                <a class="cta" href="index.html#contact">Get in Touch</a>
+            </div>
         </div>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         ${isHomePage ? '<div class="enquire-sticky"><a class="btn" href="#contact">Enquire to order</a></div>' : ''}
         ${isHomePage ? '<div class="sidebar-footer">Dunedin, Aotearoa NZ<br/>Built in small batches</div>' : ''}
     `;
@@ -24,6 +31,42 @@ function createNavigation() {
     const sidebarInner = document.querySelector('.sidebar-inner');
     if (sidebarInner) {
         sidebarInner.innerHTML = navigationHTML;
+    }
+
+    // Set up hamburger menu toggle
+    setupHamburgerMenu();
+}
+
+// Hamburger menu functionality
+function setupHamburgerMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navContainer = document.querySelector('.nav-container');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    if (hamburger && navContainer) {
+        hamburger.addEventListener('click', () => {
+            const isActive = hamburger.classList.toggle('active');
+            navContainer.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navContainer.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar-inner') && !e.target.closest('.nav-container')) {
+                hamburger.classList.remove('active');
+                navContainer.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
 }
 
